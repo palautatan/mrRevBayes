@@ -10,12 +10,12 @@ I have two versions of ```mrRevBayes()``` which is the function that takes a MrB
 
 ## Two Functions
 ```mrRevBayes()```
-  Input: Nexus file with a Bayes Block
-  Ouput: A configuration file for RevBayes
+  - Input: Nexus file with a Bayes Block
+  - Ouput: A configuration file for RevBayes
  
  ```mrRevBayes2()```
-  Input: Configuration file (.csv)
-  Output: RevBayes script
+  - Input: Configuration file (.csv)
+  - Output: RevBayes script
   
 ## mrRevBayes() -- First Version
 This function has a bug in the loops below ```readLsets()```. For most studies, it works well, but there is a problem when we go through this process:
