@@ -17,10 +17,13 @@ I have two versions of ```mrRevBayes()``` which is the function that takes a MrB
   - Input: Configuration file (.csv)
   - Output: RevBayes script
   
-## mrRevBayes() -- First Version
+## Bugs in mrRevBayes() -- First Version
 This function has a bug in the loops below ```readLsets()```. For most studies, it works well, but there is a problem when we go through this process:
 
   1. Unlink all
   2. Link some back together
   
 Not all the numbers are unique, and therefore, some partitions that are not supposed to be linked are specified as linked.
+
+## Current Development
+I am working on ```mrRevBayes2()``` to write scripts for datasets that are not saturated-partitioned.
