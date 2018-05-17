@@ -1,6 +1,8 @@
 # mrRevBayes
 translator from MrBayes to RevBayes
 
+### Warnings
+Do double check the algorithm. Bayes blocks, as I have seen, are written so differently from one another. Most of the translations I have made using my code has been correct, but a few had small mistakes. Just check the config files made by ```mrRevBayes()``` before moving onto ```mrRevBayes2()```.
 
 ### Translating MrBayes to RevBayes
 This R library translates Bayes blocks from MrBayes into RevBayes scripts. This is, of course, important if you're interested in rerunning analyses that you've previously done in MrBayes in RevBayes.
