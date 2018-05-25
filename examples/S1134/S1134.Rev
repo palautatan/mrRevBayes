@@ -1,0 +1,39 @@
+data = readDiscreteCharacterData("S1134/S1134.nex")
+
+
+taxa = data.taxa()
+num_taxa = data.ntaxa()
+num_branches = 2 * num_taxa - 3
+
+
+move_index = 0
+pi ~ dnDirichlet(v(1,1,1,1))
+moves[++move_index] = mvBetaSimplex(pi, weight=1.0)
+er ~ dnDirichlet(v(1,1,1,1,1,1))
+moves[++move_index] = mvBetaSimplex(er, weight=1.0)
+Q := fnGTR(er, pi)
+alpha ~ dnExponential(1)
+moves[++move_index] = mvScale(alpha, weight=1.0)
+site_rates := fnDiscretizeGamma(alpha, alpha, 4)
+pinvar ~ dnBeta(1,1)
+moves[++move_index] = mvSlide(pinvar)
+
+
+topology ~ dnUniformTopology(taxa)
+moves[++move_index] = mvNNI(topology, weight=10.0)
+moves[++move_index] = mvSPR(topology, weight=10.0)
+
+
+for(i in 1:num_branches) {
+  br_lens[i] ~ dnExponential(10.0)
+  moves[++move_index] = mvScale(br_lens[i], weight=1.0)
+}
+TL := sum(br_lens)
+
+
+phylogeny := treeAssembly(topology, br_lens)
+seq ~ dnPhyloCTMC(tree=phylogeny, Q=Q, type="DNA", siteRates=site_rates, pInv=pinvar)
+seq.clamp(data)
+
+
+my_model = model(phylogeny)

@@ -1,0 +1,8 @@
+"dataset","COI_codon_1","COI_codon_2","COI_codon_3","trnaLeu","COII_codon_1","COII_codon_2","COII_codon_3","12S","wg"
+"model","GTR","GTR","GTR","GTR","GTR","GTR","GTR","GTR","GTR"
+"relative rates","1","1","2","3","1","1","2","3","4"
+"stationary frequencies","1","1","2","3","1","1","2","3","4"
+"gamma","1","1","2","3","1","1","2","3","4"
+"invariant sites","1","1","2","3","1","1","2","3","4"
+"rate multiplier","1","1","2","3","1","1","2","3","4"
+"branch lengths","1","1","1","1","1","1","1","1","1"

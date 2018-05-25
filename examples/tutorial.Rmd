@@ -1,0 +1,106 @@
+---
+title: "mrRevBayes Tutorial"
+author: "Edie Espejo"
+date: "5/25/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The ```mrRevBayes``` package in ```R``` translates most well-formatted MrBayes blocks into their corresponding RevBayes scripts. This tutorial will show you two examples of a mrRevBayes translation.
+
+### Producing the Configuration File
+To start, we use the ```mrRevBayes()``` function on a ```.nex``` file with a Bayes Block in it. The function will produce a ```.csv``` that specifies the relationships between data subsets, the subsections of the nexus file normally presented in a charset, otherwise known as "partitions". There are plenty of ways a dataset can be partitioned, and the ```mrRevBayes``` translator attempts to enumerate partitions simply.
+
+You can download this package right here from GitHub. Then, load it in.
+
+```{r}
+library(mrRevBayes)
+```
+
+### Example 1: Uniform Model
+We will begin with a dataset that has a uniform model. This means that either (1) there are purposefully no specified data subsets or (2) all the data subsets are completely sharing one uniform partition. Typically, a uniform model will not be able to capture heterogeneity along the alignment very well. However, if you are opting to use a uniform model for learned reasons, then we will begin with reading in our ```.nex``` file.
+
+##### Reading in Data
+We have our relative file path to our nexus file.
+```{r}
+uniform = "S1134/S1134.nex"
+```
+
+Then, we apply mrRevBayes to that file path. We get a dataframe.
+```{r, warning=FALSE, message=FALSE}
+config_file = mrRevBayes(uniform)
+print(config_file)
+```
+
+Now that we have this config file that we can save to ```.csv``` for bookkeeping or continue on through translation with. It is important to understand the above dataframe. This library is still a bit buggy, so we need to proceed with caution before accepting the dataframe as truth. For our dataset, it seems that we have a uniformly partitioned HKY model with gamma-distributed site rates. The "0" in the sixth row means that the model does not include that line item.
+
+The Bayes block says this (from within the ```.nex``` file):
+```
+BEGIN MRBAYES;
+	set autoclose=yes;
+	log start filename=S1134_log.txt;
+
+	lset nst=2 rates=gamma;
+	
+	mcmc ngen=2000000 printfreq=1000 samplefreq=1000
+	nruns=4 nchains=4 savebrlens=yes filename=S1134;
+	sumt filename=S1134 burnin=500 contype=allcompat;
+	sump filename=S1134 burnin=500;
+	
+END;
+```
+
+The dataframe was correct. Now, we can continue to autocreate RevBayes scripts. There are two functions for creating scripts. The first is ```uniform_model()```. By inspection of the configuration file/dataframe, we can tell that we need to use ```uniform_model()``` instead of ```partitioned_model()```.
+
+To use uniform model, the configuation file has to be an actual ```.csv``` file. **Future work** should fix this and should also attempt to add appropriate white space for readability in the vector itself. We will apply ```uniform_model(config_file_path, nexus_file_path, "an_analysis_name_as_you_wish")```.
+
+```{r}
+config_file = "S1115/S1115.csv"
+uniform_script = uniform_model(config_file, uniform, "uniform")
+print(uniform_script)
+```
+
+Now that we have that script, you can save it as a ```.Rev``` file. Make sure that you run it from the same working directory as you were in when you listed the ```.nex``` file.
+
+### Example 2: Partitioned Model
+The following example was especially chosen because it is an example of where ```mrRevBayes``` is buggy and there are errors. I'll talk you through my thought process. We will read in the data first as always.
+
+```{r}
+partitioned = "S1115/S1115.nex"
+```
+
+Then, we apply mrRevBayes to that file path. We get a dataframe. We're going to pause here.
+```{r, warning=FALSE, message=FALSE}
+config_file = mrRevBayes(partitioned)
+print(config_file)
+```
+
+This configuration file looks a bit fishy. In column 10, we see that the rate multiplier for the ```wg``` subset is linked, but the rest of the column is in its own partition. Don't take this lightly. That's not normal. Upon inspecting the Bayes Block, it is true that ```wg``` has its own unique partition for everything aside from branch lengths. Therefore, I would just go in and edit the ```.csv``` to change that random 4 to 2 in the 10th column. This happened due to a big when linking partitions together in my code. **Future work** should fix this.
+
+We have to save the configuration file to ```.csv```, fix it, then we can put apply ```partitioned_model()``` to it. As you can see, we get a RevBayes script.
+
+```{r}
+partitioned_script = partitioned_model("S1115/S1115.csv", partitioned, "partitioned")
+print(partitioned_script)
+```
+
+Before proceeding, we will save both of the above scripts to file. I'll manually put them into their corresponding folders for now. You can write code to do this, obviously.
+
+```{r}
+write.table(uniform_script, file="S1134/S1134.Rev", quote=FALSE, col.names=FALSE, row.names=FALSE)
+write.table(partitioned_script, file="S1115/S1115.Rev", quote=FALSE, col.names=FALSE, row.names=FALSE)
+```
+
+We have made two models, one uniform and the other partitioned.
+
+### Adding in An Analysis
+The next thing we have to do is add in whether we're going to do an MCMC or an MCMCMC. To add in an MCMC, (I'll show the uniform model for example), use ```addMCMC()```.
+
+```{r}
+addMCMC(model_script="S1134/S1134.Rev", output_folder="S1134/output", analysis_name="S1134_mcmc")
+```
+
+You can use ```addMCMCMC()``` to add a Metropolis-Coupled Markov Chain Monte Carlo analysis as well.

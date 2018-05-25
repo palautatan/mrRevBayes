@@ -1,0 +1,149 @@
+data_COI_codon_1 = readDiscreteCharacterData("S1115/S1115.nex/COI_codon_1.nex")
+data_COI_codon_2 = readDiscreteCharacterData("S1115/S1115.nex/COI_codon_2.nex")
+data_COI_codon_3 = readDiscreteCharacterData("S1115/S1115.nex/COI_codon_3.nex")
+data_trnaLeu = readDiscreteCharacterData("S1115/S1115.nex/trnaLeu.nex")
+data_COII_codon_1 = readDiscreteCharacterData("S1115/S1115.nex/COII_codon_1.nex")
+data_COII_codon_2 = readDiscreteCharacterData("S1115/S1115.nex/COII_codon_2.nex")
+data_COII_codon_3 = readDiscreteCharacterData("S1115/S1115.nex/COII_codon_3.nex")
+data_12S = readDiscreteCharacterData("S1115/S1115.nex/12S.nex")
+data_wg = readDiscreteCharacterData("S1115/S1115.nex/wg.nex")
+
+
+taxa = data_COI_codon_1.taxa()
+num_taxa = data_COI_codon_1.ntaxa()
+num_branches = 2 * num_taxa - 3
+move_index = 0
+
+
+pi_1 ~ dnDirichlet(v(1,1,1,1))
+moves[++move_index] = mvBetaSimplex(pi_1, weight=1.0)
+er_1 ~ dnDirichlet(v(1,1,1,1,1,1))
+moves[++move_index] = mvBetaSimplex(er_1, weight=1.0)
+
+
+pi_2 ~ dnDirichlet(v(1,1,1,1))
+moves[++move_index] = mvBetaSimplex(pi_2, weight=1.0)
+er_2 ~ dnDirichlet(v(1,1,1,1,1,1))
+moves[++move_index] = mvBetaSimplex(er_2, weight=1.0)
+
+
+pi_3 ~ dnDirichlet(v(1,1,1,1))
+moves[++move_index] = mvBetaSimplex(pi_3, weight=1.0)
+er_3 ~ dnDirichlet(v(1,1,1,1,1,1))
+moves[++move_index] = mvBetaSimplex(er_3, weight=1.0)
+
+
+pi_4 ~ dnDirichlet(v(1,1,1,1))
+moves[++move_index] = mvBetaSimplex(pi_4, weight=1.0)
+er_4 ~ dnDirichlet(v(1,1,1,1,1,1))
+moves[++move_index] = mvBetaSimplex(er_4, weight=1.0)
+
+
+alpha_1 ~ dnExponential(1)
+moves[++move_index] = mvScale(alpha_1, weight=1.0)
+site_rates_1 := fnDiscretizeGamma(alpha_1, alpha_1, 4)
+
+
+alpha_2 ~ dnExponential(1)
+moves[++move_index] = mvScale(alpha_2, weight=1.0)
+site_rates_2 := fnDiscretizeGamma(alpha_2, alpha_2, 4)
+
+
+alpha_3 ~ dnExponential(1)
+moves[++move_index] = mvScale(alpha_3, weight=1.0)
+site_rates_3 := fnDiscretizeGamma(alpha_3, alpha_3, 4)
+
+
+alpha_4 ~ dnExponential(1)
+moves[++move_index] = mvScale(alpha_4, weight=1.0)
+site_rates_4 := fnDiscretizeGamma(alpha_4, alpha_4, 4)
+
+
+pinvar_1 ~ dnBeta(1,1)
+moves[++move_index] = mvSlide(pinvar_1, weight=1.0)
+
+
+pinvar_2 ~ dnBeta(1,1)
+moves[++move_index] = mvSlide(pinvar_2, weight=1.0)
+
+
+pinvar_3 ~ dnBeta(1,1)
+moves[++move_index] = mvSlide(pinvar_3, weight=1.0)
+
+
+pinvar_4 ~ dnBeta(1,1)
+moves[++move_index] = mvSlide(pinvar_4, weight=1.0)
+
+
+
+Q_COI_codon_1 := fnGTR(er_1, pi_1)
+Q_COI_codon_2 := fnGTR(er_1, pi_1)
+Q_COI_codon_3 := fnGTR(er_2, pi_2)
+Q_trnaLeu := fnGTR(er_3, pi_3)
+Q_COII_codon_1 := fnGTR(er_1, pi_1)
+Q_COII_codon_2 := fnGTR(er_1, pi_1)
+Q_COII_codon_3 := fnGTR(er_2, pi_2)
+Q_X12S := fnGTR(er_3, pi_3)
+Q_wg := fnGTR(er_4, pi_4)
+
+
+
+num_sites[1] = data_COI_codon_1.nchar() + COI_codon_2.nchar() + COII_codon_1.nchar() + COII_codon_2.nchar()
+num_sites[2] = data_COI_codon_3.nchar() + COII_codon_3.nchar()
+num_sites[3] = data_trnaLeu.nchar() + X12S.nchar()
+num_sites[4] = data_wg.nchar()
+
+
+relative_rates ~ dnDirichlet(v(1))
+moves[++move_index] = mvBetaSimplex(relative_rates, weight=1.0)
+subset_rates := relative_rates * sum(num_sites) / num_sites
+
+
+topology ~ dnUniformTopology(taxa)
+moves[++move_index] = mvNNI(topology, weight=10.0)
+moves[++move_index] = mvSPR(topology, weight=10.0)
+for(i in 1:num_branches){
+  br_lens[i] ~ dnExponential(10.0)
+  moves[++move_index] = mvScale(br_lens[i], weight=1.0)
+}
+TL := sum(br_lens)
+phylogeny := treeAssembly(topology, br_lens)
+
+
+seq_COI_codon_1 ~ dnPhyloCTMC(tree=phylogeny, Q=Q_COI_codon_1, siteRates=site_rates_1, pInv=pinv_1, branchRates=subset_rates[1])
+seq_COI_codon_1.clamp(data_COI_codon_1)
+
+
+seq_COI_codon_2 ~ dnPhyloCTMC(tree=phylogeny, Q=Q_COI_codon_2, siteRates=site_rates_1, pInv=pinv_1, branchRates=subset_rates[1])
+seq_COI_codon_2.clamp(data_COI_codon_2)
+
+
+seq_COI_codon_3 ~ dnPhyloCTMC(tree=phylogeny, Q=Q_COI_codon_3, siteRates=site_rates_2, pInv=pinv_2, branchRates=subset_rates[2])
+seq_COI_codon_3.clamp(data_COI_codon_3)
+
+
+seq_trnaLeu ~ dnPhyloCTMC(tree=phylogeny, Q=Q_trnaLeu, siteRates=site_rates_3, pInv=pinv_3, branchRates=subset_rates[3])
+seq_trnaLeu.clamp(data_trnaLeu)
+
+
+seq_COII_codon_1 ~ dnPhyloCTMC(tree=phylogeny, Q=Q_COII_codon_1, siteRates=site_rates_1, pInv=pinv_1, branchRates=subset_rates[1])
+seq_COII_codon_1.clamp(data_COII_codon_1)
+
+
+seq_COII_codon_2 ~ dnPhyloCTMC(tree=phylogeny, Q=Q_COII_codon_2, siteRates=site_rates_1, pInv=pinv_1, branchRates=subset_rates[1])
+seq_COII_codon_2.clamp(data_COII_codon_2)
+
+
+seq_COII_codon_3 ~ dnPhyloCTMC(tree=phylogeny, Q=Q_COII_codon_3, siteRates=site_rates_2, pInv=pinv_2, branchRates=subset_rates[2])
+seq_COII_codon_3.clamp(data_COII_codon_3)
+
+
+seq_X12S ~ dnPhyloCTMC(tree=phylogeny, Q=Q_X12S, siteRates=site_rates_3, pInv=pinv_3, branchRates=subset_rates[3])
+seq_X12S.clamp(data_X12S)
+
+
+seq_wg ~ dnPhyloCTMC(tree=phylogeny, Q=Q_wg, siteRates=site_rates_4, pInv=pinv_4, branchRates=subset_rates[4])
+seq_wg.clamp(data_wg)
+
+
+my_model = model(phylogeny)
