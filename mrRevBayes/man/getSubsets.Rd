@@ -2,14 +2,14 @@
 % Please edit documentation in R/mrRevBayes.R
 \name{getSubsets}
 \alias{getSubsets}
-\title{func_name()}
+\title{getSubsets()}
 \usage{
 getSubsets(bayes_block)
 }
 \arguments{
-\item{param_1}{Insert description}
+\item{bayes_block}{str - Takes the output from getBayesBlock()}
 }
 \description{
-Insert description
+Returns the subsets specified by a Bayes block
 }
 \keyword{mrRevBayes}

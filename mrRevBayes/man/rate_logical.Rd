@@ -2,14 +2,14 @@
 % Please edit documentation in R/mrRevBayes.R
 \name{rate_logical}
 \alias{rate_logical}
-\title{func_name()}
+\title{rate_logical()}
 \usage{
 rate_logical(rates)
 }
 \arguments{
-\item{param_1}{Insert description}
+\item{rates}{str - Values include "equal", "gamma", "propinv", "invgamma"}
 }
 \description{
-Insert description
+Translates the ASRV information
 }
 \keyword{mrRevBayes}

@@ -2,14 +2,16 @@
 % Please edit documentation in R/partitioned_model.R
 \name{partitioned_model}
 \alias{partitioned_model}
-\title{func_name()}
+\title{partitioned_model()}
 \usage{
-partitioned_model(scheme_csv, subsets_folder, name)
+partitioned_model(scheme_csv, subsets_folder)
 }
 \arguments{
-\item{param_1}{Insert description}
+\item{scheme_csv}{.csv - Relative path to the configuration file}
+
+\item{subsets_folder}{path - Relative path to folder that contains nexus subset files}
 }
 \description{
-Insert description
+Outputs Rev script given a RevBayes configuration file
 }
 \keyword{mrRevBayes}

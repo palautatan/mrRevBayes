@@ -2,14 +2,14 @@
 % Please edit documentation in R/mrRevBayes.R
 \name{simplifyRows}
 \alias{simplifyRows}
-\title{func_name()}
+\title{simplifyRows()}
 \usage{
 simplifyRows(this_row)
 }
 \arguments{
-\item{param_1}{Insert description}
+\item{this_row}{Row from the configuration file scheme}
 }
 \description{
-Insert description
+Reads in priors within mrRevBayes()
 }
 \keyword{mrRevBayes}

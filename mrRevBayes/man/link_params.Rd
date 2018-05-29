@@ -2,14 +2,14 @@
 % Please edit documentation in R/mrRevBayes.R
 \name{link_params}
 \alias{link_params}
-\title{func_name()}
+\title{link_params()}
 \usage{
 link_params(link_string)
 }
 \arguments{
-\item{param_1}{Insert description}
+\item{link_string}{str - Takes in a linking line from a Bayes block}
 }
 \description{
-Insert description
+Classifies whether or not their exists linking lines
 }
 \keyword{mrRevBayes}

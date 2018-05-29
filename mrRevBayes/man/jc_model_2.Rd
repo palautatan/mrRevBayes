@@ -2,14 +2,14 @@
 % Please edit documentation in R/partitioned_model.R
 \name{jc_model_2}
 \alias{jc_model_2}
-\title{func_name()}
+\title{jc_model_2()}
 \usage{
 jc_model_2(ix)
 }
 \arguments{
-\item{param_1}{Insert description}
+\item{ix}{int/str - Current partition's index number}
 }
 \description{
-Insert description
+Currently has no purpose
 }
 \keyword{mrRevBayes}

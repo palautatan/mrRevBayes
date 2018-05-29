@@ -2,15 +2,23 @@
 % Please edit documentation in R/mrRevBayes.R
 \name{linkMatrix}
 \alias{linkMatrix}
-\title{func_name()}
+\title{linkMatrix()}
 \usage{
 linkMatrix(link_string, bayes_links, headers = TRUE, main = TRUE,
   blank = FALSE)
 }
 \arguments{
-\item{param_1}{Insert description}
+\item{link_string}{TBD}
+
+\item{bayes_links}{TBD}
+
+\item{headers}{boolean - the first two lines will be items and config_loc}
+
+\item{main}{boolean - whether this matrix is standalone; otherwise, the matrix will be appended to another one}
+
+\item{blank}{boolean - blank matrix with just the headers will be returned}
 }
 \description{
-Insert description
+Returns a matrix of linkages in Bayes block -- description to be updated later
 }
 \keyword{mrRevBayes}

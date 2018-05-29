@@ -2,14 +2,14 @@
 % Please edit documentation in R/partitioned_model.R
 \name{hky_model_2}
 \alias{hky_model_2}
-\title{func_name()}
+\title{hky_model_2()}
 \usage{
 hky_model_2(ix)
 }
 \arguments{
-\item{param_1}{Insert description}
+\item{ix}{int/str - Current partition's index number}
 }
 \description{
-Insert description
+Used in partitioned_model() for HKY models
 }
 \keyword{mrRevBayes}

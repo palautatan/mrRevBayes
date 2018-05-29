@@ -4,11 +4,11 @@
 #' @param model_script Relative path to the script
 #' @param analysis_name str - Choice of name to save file as
 #' @param output_folder Relative path to where the RevBayes output should go to
-#' @param nchains=4
-#' @param deltaheat=0.2
-#' @param generations=10000
-#' @param burnin=250
-#' @param tuning=100
+#' @param nchains=4 TBD
+#' @param deltaheat=0.2 TBD
+#' @param generations=10000 TBD
+#' @param burnin=250 TBD
+#' @param tuning=100 TBD
 #' @keywords mrRevBayes
 #' @export
 

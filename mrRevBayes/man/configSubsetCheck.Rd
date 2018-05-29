@@ -2,14 +2,14 @@
 % Please edit documentation in R/mrRevBayes.R
 \name{configSubsetCheck}
 \alias{configSubsetCheck}
-\title{func_name()}
+\title{configSubsetCheck()}
 \usage{
 configSubsetCheck(config_mat)
 }
 \arguments{
-\item{param_1}{Insert description}
+\item{config_mat}{matrix - NOT A RELATIVE PATH}
 }
 \description{
-Insert description
+Cleans up configuration files by separating columns that are oddly together and deleting duplicate columns
 }
 \keyword{mrRevBayes}

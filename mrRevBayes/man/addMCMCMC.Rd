@@ -2,15 +2,29 @@
 % Please edit documentation in R/addMCMCMC.R
 \name{addMCMCMC}
 \alias{addMCMCMC}
-\title{func_name()}
+\title{addMCMCMC()}
 \usage{
 addMCMCMC(model_script, analysis_name, output_folder, nchains = 4,
   deltaheat = 0.2, generations = 10000, burnin = 250, tuning = 100)
 }
 \arguments{
-\item{param_1}{Insert description}
+\item{model_script}{Relative path to the script}
+
+\item{analysis_name}{str - Choice of name to save file as}
+
+\item{output_folder}{Relative path to where the RevBayes output should go to}
+
+\item{nchains=4}{TBD}
+
+\item{deltaheat=0.2}{TBD}
+
+\item{generations=10000}{TBD}
+
+\item{burnin=250}{TBD}
+
+\item{tuning=100}{TBD}
 }
 \description{
-Insert description
+Takes a model script and adds a Metropolis-Coupled Markov Chain Monte Carlo analyses
 }
 \keyword{mrRevBayes}

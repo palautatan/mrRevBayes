@@ -135,8 +135,8 @@ rate_logical = function(rates) {
 #' linkMatrix()
 #'
 #' Returns a matrix of linkages in Bayes block -- description to be updated later
-#' @param link_string
-#' @param bayes_links
+#' @param link_string TBD
+#' @param bayes_links TBD
 #' @param headers boolean - the first two lines will be items and config_loc
 #' @param main boolean - whether this matrix is standalone; otherwise, the matrix will be appended to another one
 #' @param blank boolean - blank matrix with just the headers will be returned

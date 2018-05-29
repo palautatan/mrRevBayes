@@ -2,14 +2,16 @@
 % Please edit documentation in R/mrRevBayes.R
 \name{readLsets}
 \alias{readLsets}
-\title{func_name()}
+\title{readLsets()}
 \usage{
 readLsets(bayes_block, num_subsets)
 }
 \arguments{
-\item{param_1}{Insert description}
+\item{bayes_block}{Output from getBayesBlock()}
+
+\item{num_subsets}{int/str - How many subsets specified in the Bayes block}
 }
 \description{
-Insert description
+Reads in lsets within mrRevBayes()
 }
 \keyword{mrRevBayes}

@@ -2,14 +2,14 @@
 % Please edit documentation in R/mrRevBayes.R
 \name{getBayesBlock}
 \alias{getBayesBlock}
-\title{func_name()}
+\title{getBayesBlock()}
 \usage{
 getBayesBlock(nexus_file)
 }
 \arguments{
-\item{param_1}{Insert description}
+\item{nexus_file}{Relative path to a nexus file with a Bayes block in it}
 }
 \description{
-Insert description
+Returns the Bayes block from a nexus file
 }
 \keyword{mrRevBayes}

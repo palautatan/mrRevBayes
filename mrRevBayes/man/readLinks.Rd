@@ -2,14 +2,14 @@
 % Please edit documentation in R/mrRevBayes.R
 \name{readLinks}
 \alias{readLinks}
-\title{func_name()}
+\title{readLinks()}
 \usage{
 readLinks(bayes_block)
 }
 \arguments{
-\item{param_1}{Insert description}
+\item{bayes_block}{Output from getBayesBlock()}
 }
 \description{
-Insert description
+Reads in links within mrRevBayes()
 }
 \keyword{mrRevBayes}

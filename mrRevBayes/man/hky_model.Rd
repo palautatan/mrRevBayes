@@ -2,14 +2,16 @@
 % Please edit documentation in R/uniform_model.R
 \name{hky_model}
 \alias{hky_model}
-\title{func_name()}
+\title{hky_model()}
 \usage{
 hky_model(gamma_pinv, subset_name = "")
 }
 \arguments{
-\item{param_1}{Insert description}
+\item{gamma_pinv}{Boolean vector from uniform_model()}
+
+\item{subset_name}{Deprecated; this paramater is needed for an old partitioned_model().}
 }
 \description{
-Insert description
+Writes code for the HKY model for uniform_model()
 }
 \keyword{mrRevBayes}

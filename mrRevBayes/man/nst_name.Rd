@@ -2,14 +2,14 @@
 % Please edit documentation in R/mrRevBayes.R
 \name{nst_name}
 \alias{nst_name}
-\title{func_name()}
+\title{nst_name()}
 \usage{
 nst_name(nst_num)
 }
 \arguments{
-\item{param_1}{Insert description}
+\item{nst_num}{int/str - Values include NA, 1, 2, or 6}
 }
 \description{
-Insert description
+Translates nst to a model name
 }
 \keyword{mrRevBayes}

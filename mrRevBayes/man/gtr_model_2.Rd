@@ -2,14 +2,14 @@
 % Please edit documentation in R/partitioned_model.R
 \name{gtr_model_2}
 \alias{gtr_model_2}
-\title{func_name()}
+\title{gtr_model_2()}
 \usage{
 gtr_model_2(ix)
 }
 \arguments{
-\item{param_1}{Insert description}
+\item{ix}{int/str - Current partition's index number}
 }
 \description{
-Insert description
+Used in partitioned_model() for GTR models
 }
 \keyword{mrRevBayes}

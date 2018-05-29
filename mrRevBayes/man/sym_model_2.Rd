@@ -2,14 +2,14 @@
 % Please edit documentation in R/partitioned_model.R
 \name{sym_model_2}
 \alias{sym_model_2}
-\title{func_name()}
+\title{sym_model_2()}
 \usage{
 sym_model_2(ix)
 }
 \arguments{
-\item{param_1}{Insert description}
+\item{ix}{int/str - Current partition's index number}
 }
 \description{
-Insert description
+Used in partitioned_model() for SYM models
 }
 \keyword{mrRevBayes}

@@ -2,14 +2,14 @@
 % Please edit documentation in R/mrRevBayes.R
 \name{readPriors}
 \alias{readPriors}
-\title{func_name()}
+\title{readPriors()}
 \usage{
 readPriors(bayes_block)
 }
 \arguments{
-\item{param_1}{Insert description}
+\item{bayes_block}{Output from getBayesBlock()}
 }
 \description{
-Insert description
+Reads in priors within mrRevBayes()
 }
 \keyword{mrRevBayes}

@@ -2,14 +2,14 @@
 % Please edit documentation in R/mrRevBayes.R
 \name{mrRevBayes}
 \alias{mrRevBayes}
-\title{func_name()}
+\title{mrRevBayes()}
 \usage{
 mrRevBayes(nexus_file)
 }
 \arguments{
-\item{param_1}{Insert description}
+\item{nexus_file}{Relative path to nexus file with a Bayes block in it}
 }
 \description{
-Insert description
+Takes a nexus file and makes a scheme
 }
 \keyword{mrRevBayes}
