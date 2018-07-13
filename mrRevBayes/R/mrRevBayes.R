@@ -493,6 +493,26 @@ mrRevBayes = function(nexus_file) {
   }
 
 
+  # --- RATE MULTIPLIERS
+  rate_mult_info = prior_mat[which(prior_mat[,2]=="variable"),1:2]
+
+  # --- SEVERAL LINES DICTATE RATE MULTIPLIERS
+  if (class(rate_mult_info)=="matrix") {
+    for (ix in 1:nrow(rate_mult_info)) {
+      if (rate_mult_info[ix,1] == "all") {
+        print("This shit says all")
+      } else{
+        print("This got a numbr")
+      }
+    }
+
+  # --- THERE IS ONLY ONE LINE TALKING ABOUT RATE MULTIPLIERS
+  } else {
+    if (rate_mult_info[1] == "all") {
+      config_mat[7,2:ncol(config_mat)] = 1:num_subsets
+    }
+  }
+
 
 
 
@@ -526,6 +546,9 @@ mrRevBayes = function(nexus_file) {
   # * FOR NOW, REMOVE TRATIO
   # * REMOVES COLUMN
   link_mat = link_mat[,-3]
+
+  # --- 6bii. REMOVE RATE MULTIPLIER
+  link_mat = link_mat[,-5]
 
 
 
