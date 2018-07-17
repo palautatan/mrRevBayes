@@ -232,11 +232,11 @@ partitioned_model = function(scheme_csv, subsets_folder) {
     # this_partition = which(scheme[2,]==ix)
 
     # scheme[4,this_partition]
-    pinv_1 = "pinvar ~ dnBeta(1,1)"
-    pinv_2 = "moves[++move_index] = mvSlide(pinvar, weight=1.0)"
+    pinv_1 = "pinv ~ dnBeta(1,1)"
+    pinv_2 = "moves[++move_index] = mvSlide(pinv, weight=1.0)"
 
-    pinv_1 = gsub("pinvar", paste0("pinvar_",ix), pinv_1)
-    pinv_2 = gsub("pinvar", paste0("pinvar_",ix), pinv_2)
+    pinv_1 = gsub("pinv", paste0("pinv_",ix), pinv_1)
+    pinv_2 = gsub("pinv", paste0("pinv_",ix), pinv_2)
 
     script = c(script, c("\n", pinv_1, pinv_2))
   }
@@ -272,7 +272,7 @@ partitioned_model = function(scheme_csv, subsets_folder) {
     for (ix in br_rate_lvs) {
       this_partition = which(scheme[6,]==ix)
 
-      sum = paste0("num_sites[", ix, "] = data_", paste0(subsets[this_partition-1], ".nchar()", collapse=" + "))
+      sum = paste0("num_sites[", ix, "] = ", paste0("data_",paste0(subsets[this_partition-1], ".nchar()", collapse=" + ")))
       script = c(script, sum)
     }
 
