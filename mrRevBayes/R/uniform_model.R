@@ -352,6 +352,7 @@ uniform_model = function(scheme_csv, nexus_file) {
   # * 1.
   # * READ IN SCHEME CSV
   scheme = read.csv(scheme_csv, as.is=TRUE)
+  scheme = scheme[,-1]
 
 
   # * 2.

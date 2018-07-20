@@ -112,6 +112,7 @@ partitioned_model = function(scheme_csv, subsets_folder) {
   # * 1A.
   # * READ IN SCHEME CSV
   scheme = read.csv(scheme_csv, as.is=TRUE)
+  scheme = scheme[,-1]
   num_subsets = length(scheme[1,])-1
 
 
